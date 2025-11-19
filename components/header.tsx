@@ -24,7 +24,7 @@ export default function Header() {
           <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition">
             Pricing
           </Link>
-          <Link href="#docs" className="text-sm text-muted-foreground hover:text-foreground transition">
+          <Link href="/docs" className="text-sm text-muted-foreground hover:text-foreground transition">
             Docs
           </Link>
         </div>
@@ -51,6 +51,9 @@ export default function Header() {
             </Link>
             <Link href="#code" className="block text-sm text-muted-foreground hover:text-foreground transition">
               SDKs
+            </Link>
+            <Link href="/docs" className="block text-sm text-muted-foreground hover:text-foreground transition">
+              Docs
             </Link>
             <Link href="#pricing" className="block text-sm text-muted-foreground hover:text-foreground transition">
               Pricing

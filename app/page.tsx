@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import Header from "@/components/header"
 import Hero from "@/components/hero"
 import Features from "@/components/features"
 import CodeExamples from "@/components/code-examples"
@@ -100,7 +99,6 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground overflow-hidden">
       <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none opacity-50" />
       <div className="relative z-10">
-        <Header />
         <Hero />
         <Features />
         <CodeExamples />

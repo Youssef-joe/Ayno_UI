@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react"
 
+import Link from "next/link"
+
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -36,9 +38,9 @@ export default function Hero() {
             <button className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:opacity-90 transition transform hover:scale-105">
               Start Free Trial
             </button>
-            <button className="px-8 py-4 glass rounded-full font-semibold hover:bg-white/10 transition">
+            <Link href="/docs" className="px-8 py-4 glass rounded-full font-semibold hover:bg-white/10 transition inline-block">
               View Documentation
-            </button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-3 gap-4 md:gap-8 text-center">
