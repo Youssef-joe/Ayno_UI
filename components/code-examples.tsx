@@ -1,98 +1,137 @@
 "use client"
 
 import { useState } from "react"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { atomOneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs"
 
 const examples = [
-  {
-    language: "JavaScript",
-    code: `import { Ayno } from '@ayno/js'
+    {
+        language: "WebSocket (JavaScript)",
+        code: `import { Socket } from "phoenix"
 
-const ayno = new Ayno({
-  apiKey: 'your-api-key'
+const socket = new Socket("ws://localhost:4000/socket", {
+  params: { 
+    app_id: "demo-app", 
+    token: "valid_token_user123" 
+  }
 })
 
-ayno.subscribe('chat', (message) => {
-  console.log('New message:', message)
+socket.connect()
+
+const channel = socket.channel("room:lobby", {})
+channel.join()
+
+channel.on("message", (event) => {
+  console.log("New message:", event)
 })
 
-ayno.publish('chat', {
-  user: 'Alice',
-  text: 'Hello, world!'
+channel.push("message", {
+  text: "Hello from Phoenix!",
+  user: "Alice"
 })`,
-  },
-  {
-    language: "Python",
-    code: `from ayno import Ayno
+        lang: "javascript",
+    },
+    {
+        language: "HTTP (cURL)",
+        code: `# Publish event via HTTP
+curl -X POST http://localhost:4000/apps/demo-app/channels/room:test/publish \\
+  -H "Content-Type: application/json" \\
+  -H "X-API-Key: valid_key_demo-app" \\
+  -d '{
+    "type": "message",
+    "data": {
+      "user": "Bob",
+      "text": "Hello from HTTP!"
+    }
+  }'
 
-ayno = Ayno(api_key='your-api-key')
+# Get channel history
+curl http://localhost:4000/apps/demo-app/channels/room:test/history`,
+        lang: "bash",
+    },
+    {
+        language: "gRPC (Go)",
+        code: `package main
 
-@ayno.on('chat')
-def handle_message(message):
-    print(f"New message: {message}")
-
-ayno.publish('chat', {
-    'user': 'Bob',
-    'text': 'Hello from Python!'
-})`,
-  },
-  {
-    language: "Go",
-    code: `package main
-
-import "github.com/ayno/go"
+import (
+  "context"
+  pb "polyglot/pb"
+  "google.golang.org/grpc"
+)
 
 func main() {
-  client := ayno.NewClient("your-api-key")
+  conn, _ := grpc.Dial(
+    "localhost:9090",
+    grpc.WithInsecure(),
+  )
+  defer conn.Close()
+
+  client := pb.NewProcessorClient(conn)
+  resp, _ := client.ProcessEvent(
+    context.Background(),
+    &pb.ProcessRequest{
+      AppId: "demo-app",
+      Event: &pb.Event{
+        Type: "message",
+        Data: "Hello from gRPC!",
+      },
+    },
+  )
   
-  client.Subscribe("chat", func(msg interface{}) {
-    fmt.Println("Message:", msg)
-  })
-  
-  client.Publish("chat", map[string]string{
-    "user": "Charlie",
-    "text": "Hello from Go!",
-  })
+  println("Processed:", resp.Status)
 }`,
-  },
+        lang: "go",
+    },
 ]
 
 export default function CodeExamples() {
-  const [activeTab, setActiveTab] = useState(0)
+    const [activeTab, setActiveTab] = useState(0)
 
-  return (
-    <section id="code" className="py-20 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-5xl md:text-6xl font-display font-bold mb-4 tracking-tight">
-            Simple, Elegant APIs
-          </h2>
-          <p className="text-lg text-muted-foreground">Get started in minutes with our intuitive SDKs.</p>
-        </div>
+    return (
+        <section id="code" className="py-20 px-4">
+            <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-12">
+                    <h2 className="text-5xl md:text-6xl font-display font-bold mb-4 tracking-tight">
+                        Multiple Protocol Support
+                    </h2>
+                    <p className="text-lg text-muted-foreground">WebSocket, HTTP, and gRPC — choose what works for your use case.</p>
+                </div>
 
-        <div className="glass-premium rounded-2xl overflow-hidden">
-          <div className="flex border-b border-white/10">
-            {examples.map((example, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTab(index)}
-                className={`flex-1 px-6 py-4 font-medium transition text-sm ${
-                  activeTab === index
-                    ? "bg-white/10 text-primary border-b-2 border-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {example.language}
-              </button>
-            ))}
-          </div>
+                <div className="glass-premium rounded-2xl overflow-hidden">
+                    <div className="flex border-b border-white/10">
+                        {examples.map((example, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setActiveTab(index)}
+                                className={`flex-1 px-6 py-4 font-medium transition text-sm ${activeTab === index
+                                        ? "bg-white/10 text-primary border-b-2 border-primary"
+                                        : "text-muted-foreground hover:text-foreground"
+                                    }`}
+                            >
+                                {example.language}
+                            </button>
+                        ))}
+                    </div>
 
-          <div className="p-6 bg-black/40">
-            <pre className="text-sm text-cyan-300 font-mono overflow-x-auto leading-relaxed">
-              <code>{examples[activeTab].code}</code>
-            </pre>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+                    <div className="bg-black/40 overflow-hidden rounded-b-2xl">
+                        <SyntaxHighlighter
+                            language={examples[activeTab].lang}
+                            style={atomOneDark}
+                            customStyle={{
+                                margin: 0,
+                                padding: "24px",
+                                fontSize: "14px",
+                                lineHeight: "1.5",
+                                backgroundColor: "transparent",
+                            }}
+                            wrapLines={true}
+                            showLineNumbers={false}
+                        >
+                            {examples[activeTab].code}
+                        </SyntaxHighlighter>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
 }
