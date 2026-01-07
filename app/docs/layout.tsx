@@ -1,4 +1,5 @@
 import DocsSidebar from "@/components/docs-sidebar"
+import DocsLayoutClient from "@/components/docs-layout-client"
 
 export const metadata = {
   title: "Documentation - Ayno",
@@ -11,13 +12,8 @@ export default function DocsLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
-      <DocsSidebar />
-      <main className="flex-1 overflow-auto">
-        <div className="max-w-4xl mx-auto px-8 py-12">
-          {children}
-        </div>
-      </main>
-    </div>
+    <DocsLayoutClient>
+      {children}
+    </DocsLayoutClient>
   )
 }
