@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "Channels - Ayno Docs",
   description: "Understanding and using Ayno channels",
@@ -21,7 +24,7 @@ export default function ChannelsPage() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Channel Naming</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-mono font-semibold text-primary mb-2">Format</h3>
@@ -46,10 +49,11 @@ export default function ChannelsPage() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Publishing to Channels</h2>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`POST /apps/demo-app/channels/room:lobby/publish
+            <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+
+              {`POST /apps/demo-app/channels/room:lobby/publish
 Content-Type: application/json
 X-API-Key: valid_key_demo-app
 
@@ -60,7 +64,7 @@ X-API-Key: valid_key_demo-app
     "text": "Hello everyone!"
   }
 }`}
-            </code>
+            </SyntaxHighlighter>
           </div>
 
           <p className="text-sm text-muted-foreground">
@@ -70,10 +74,10 @@ X-API-Key: valid_key_demo-app
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Subscribing to Channels</h2>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`// JavaScript
+            <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+              {`// JavaScript
 const socket = new WebSocket('ws://localhost:4000/socket');
 
 socket.onopen = () => {
@@ -94,13 +98,13 @@ socket.onmessage = (event) => {
   const message = JSON.parse(event.data);
   console.log('New message:', message.data);
 };`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Channel Patterns</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">📢 Public Channels</h3>
@@ -134,12 +138,12 @@ socket.onmessage = (event) => {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Channel History</h2>
-          
+
           <p className="text-muted-foreground mb-4">Retrieve message history from a channel:</p>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`GET /apps/demo-app/channels/room:lobby/history
+            <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+              {`GET /apps/demo-app/channels/room:lobby/history
 
 Response:
 [
@@ -156,7 +160,7 @@ Response:
     "timestamp": 1704067205000
   }
 ]`}
-            </code>
+            </SyntaxHighlighter>
           </div>
 
           <p className="text-sm text-muted-foreground">
@@ -166,7 +170,7 @@ Response:
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Best Practices</h2>
-          
+
           <ul className="space-y-3 text-muted-foreground">
             <li>
               <strong>Use descriptive names:</strong> <code className="bg-black/50 px-2 py-1 rounded text-xs">room:announcements</code> not <code className="bg-black/50 px-2 py-1 rounded text-xs">ch1</code>

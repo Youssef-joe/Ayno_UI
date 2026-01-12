@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "Circuit Breaker - Ayno Docs",
   description: "Understanding the circuit breaker pattern in Ayno",
@@ -21,7 +24,7 @@ export default function CircuitBreakerPage() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">States</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-green-500/30 bg-green-500/10">
               <h3 className="font-semibold text-green-400 mb-2">🟢 CLOSED (Normal)</h3>
@@ -48,10 +51,10 @@ export default function CircuitBreakerPage() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">State Transitions</h2>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`CLOSED
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`CLOSED
   ↓ [5 consecutive failures]
 OPEN
   ↓ [30 second timeout]
@@ -63,42 +66,42 @@ HALF_OPEN
   └─ [failure]
      ↓
      OPEN (stay protected)`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Configuration</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">CIRCUIT_BREAKER_THRESHOLD</h3>
               <p className="text-sm text-muted-foreground mb-2">Failures before opening</p>
-              <div className="bg-black/50 px-2 py-1 rounded text-xs text-green-400">Default: 5</div>
+              <div className="bg-black/50 px-3 py-3 rounded text-xs text-green-400">Default: 5</div>
             </div>
 
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">CIRCUIT_BREAKER_TIMEOUT</h3>
               <p className="text-sm text-muted-foreground mb-2">Milliseconds before recovery test</p>
-              <div className="bg-black/50 px-2 py-1 rounded text-xs text-green-400">Default: 30000 (30 seconds)</div>
+              <div className="bg-black/50 px-3 py-3 rounded text-xs text-green-400">Default: 30000 (30 seconds)</div>
             </div>
 
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">USE_CIRCUIT_BREAKER</h3>
               <p className="text-sm text-muted-foreground mb-2">Enable/disable circuit breaker</p>
-              <div className="bg-black/50 px-2 py-1 rounded text-xs text-green-400">Default: true</div>
+              <div className="bg-black/50 px-3 py-3 rounded text-xs text-green-400">Default: true</div>
             </div>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Monitoring Status</h2>
-          
+
           <p className="text-muted-foreground mb-4">Check circuit breaker status:</p>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`curl http://localhost:4000/api/debug/circuit-breaker
+           <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`curl http://localhost:4000/api/debug/circuit-breaker
 
 Response:
 {
@@ -106,7 +109,7 @@ Response:
   "failures": 0,
   "last_failure": null
 }`}
-            </code>
+            </SyntaxHighlighter>
           </div>
 
           <p className="text-sm text-muted-foreground mt-2">
@@ -116,10 +119,10 @@ Response:
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Automatic Failover</h2>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`When CLOSED (normal):
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`When CLOSED (normal):
   Event → Try gRPC (9090) → Success → User response
 
 When OPEN (protecting):
@@ -128,13 +131,13 @@ When OPEN (protecting):
 
 When HALF_OPEN (testing):
   Event → Try gRPC again → If works, CLOSED → Resume fast path`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">When Circuit Opens</h2>
-          
+
           <ul className="space-y-3 text-muted-foreground">
             <li>
               <strong>1. Detection:</strong> 5 consecutive failures detected
@@ -153,12 +156,12 @@ When HALF_OPEN (testing):
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Log Monitoring</h2>
-          
+
           <p className="text-muted-foreground mb-4">Watch logs for circuit breaker activity:</p>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`# Watch for state changes
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`# Watch for state changes
 docker logs -f polyglot_1 | grep -i "circuit"
 
 Look for:
@@ -167,13 +170,13 @@ Look for:
 🔄 "Circuit breaker: HALF_OPEN" → Testing recovery
 ✓ "Event processed via gRPC" → Fast path
 ⚠ "Event processed via HTTP" → Fallback active`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Troubleshooting</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Circuit stays OPEN</h3>
@@ -200,7 +203,7 @@ Look for:
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Performance Impact</h2>
-          
+
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-white/10">
