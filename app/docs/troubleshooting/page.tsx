@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "Troubleshooting - Ayno Docs",
   description: "Solutions to common Ayno issues",
@@ -18,7 +21,7 @@ export default function TroubleshootingPage() {
           <p className="text-muted-foreground mb-4">Always start here:</p>
           
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
 {`# 1. Check if server is running
 curl http://localhost:4000/health
 # Expected: {"status":"healthy"}
@@ -34,7 +37,7 @@ curl http://localhost:4000/alive
 # 4. Check circuit breaker
 curl http://localhost:4000/api/debug/circuit-breaker
 # Expected: "state":"closed"`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
@@ -47,9 +50,9 @@ curl http://localhost:4000/api/debug/circuit-breaker
               <div className="text-sm text-muted-foreground space-y-2">
                 <p><strong>Cause:</strong> Elixir server not running</p>
                 <p><strong>Fix:</strong></p>
-                <code className="bg-black/50 px-2 py-1 rounded text-xs block mt-1">
+                <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
                   docker-compose up polyglot
-                </code>
+                </SyntaxHighlighter>
               </div>
             </div>
 
@@ -58,10 +61,10 @@ curl http://localhost:4000/api/debug/circuit-breaker
               <div className="text-sm text-muted-foreground space-y-2">
                 <p><strong>Cause:</strong> Another process using port 4000</p>
                 <p><strong>Fix:</strong></p>
-                <code className="bg-black/50 px-2 py-1 rounded text-xs block mt-1">
+                <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
                   lsof -i :4000  # Find process
                   kill -9 &lt;PID&gt;   # Kill it
-                </code>
+                </SyntaxHighlighter>
               </div>
             </div>
 
@@ -70,9 +73,9 @@ curl http://localhost:4000/api/debug/circuit-breaker
               <div className="text-sm text-muted-foreground space-y-2">
                 <p><strong>Cause:</strong> Firewall blocking port or server overloaded</p>
                 <p><strong>Fix:</strong></p>
-                <code className="bg-black/50 px-2 py-1 rounded text-xs block mt-1">
+                <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
                   docker logs polyglot_1 | tail -50
-                </code>
+                </SyntaxHighlighter>
               </div>
             </div>
           </div>
@@ -86,7 +89,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
               <h3 className="font-semibold text-red-400 mb-2">401 Unauthorized</h3>
               <div className="text-sm text-muted-foreground space-y-2">
                 <p><strong>Cause:</strong> Invalid or missing API key</p>
-                <p><strong>Fix:</strong> Use format <code className="bg-black/50 px-1 rounded text-xs">valid_key_demo-app</code></p>
+                <p><strong>Fix:</strong> Use format <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">valid_key_demo-app</SyntaxHighlighter></p>
               </div>
             </div>
 
@@ -94,7 +97,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
               <h3 className="font-semibold text-red-400 mb-2">404 Not Found</h3>
               <div className="text-sm text-muted-foreground space-y-2">
                 <p><strong>Cause:</strong> Invalid app ID or channel name</p>
-                <p><strong>Fix:</strong> Check app_id and channel format: <code className="bg-black/50 px-1 rounded text-xs">category:name</code></p>
+                <p><strong>Fix:</strong> Check app_id and channel format: <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">category:name</SyntaxHighlighter></p>
               </div>
             </div>
 
@@ -119,7 +122,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
         <section>
           <h2 className="text-2xl font-semibold mb-4">WebSocket Issues</h2>
           
-          <div className="space-yscale-4">
+          <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">WebSocket connection refused</h3>
               <div className="text-sm text-muted-foreground space-y-2">
@@ -162,7 +165,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
               <h3 className="font-semibold text-red-400 mb-2">High CPU usage ({'>'}80%)</h3>
               <div className="text-sm text-muted-foreground space-y-2">
                 <p><strong>Cause:</strong> Too many connections or large payloads</p>
-                <p><strong>Fix:</strong> Scale servers: <code className="bg-black/50 px-1 rounded text-xs">--scale polyglot=5</code></p>
+                <p><strong>Fix:</strong> Scale servers: <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">--scale polyglot=5</SyntaxHighlighter></p>
               </div>
             </div>
 
@@ -178,7 +181,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
               <h3 className="font-semibold text-red-400 mb-2">Low throughput ({'<'}30k req/s)</h3>
               <div className="text-sm text-muted-foreground space-y-2">
                 <p><strong>Cause:</strong> Using HTTP instead of gRPC</p>
-                <p><strong>Fix:</strong> Enable gRPC: <code className="bg-black/50 px-1 rounded text-xs">USE_GRPC=true</code></p>
+                <p><strong>Fix:</strong> Enable gRPC: <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">USE_GRPC=true</SyntaxHighlighter></p>
               </div>
             </div>
           </div>
@@ -191,9 +194,9 @@ curl http://localhost:4000/api/debug/circuit-breaker
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Container won't start</h3>
               <div className="text-sm text-muted-foreground space-y-2">
-                <code className="bg-black/50 px-2 py-1 rounded text-xs block">
+                <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
                   docker-compose logs polyglot
-                </code>
+                </SyntaxHighlighter>
               </div>
             </div>
 
@@ -207,9 +210,9 @@ curl http://localhost:4000/api/debug/circuit-breaker
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Build fails</h3>
               <div className="text-sm text-muted-foreground space-y-2">
-                <code className="bg-black/50 px-2 py-1 rounded text-xs block">
+                <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
                   docker-compose build --no-cache
-                </code>
+                </SyntaxHighlighter>
               </div>
             </div>
           </div>
@@ -219,7 +222,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
           <h2 className="text-2xl font-semibold mb-4">Diagnostics Commands</h2>
           
           <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
 {`# Full system diagnosis
 echo "1. Check health"
 curl -s http://localhost:4000/health | jq
@@ -241,7 +244,7 @@ curl -X POST http://localhost:4000/apps/demo-app/channels/test:ch/publish \\
   -H "X-API-Key: valid_key_demo-app" \\
   -H "Content-Type: application/json" \\
   -d '{"type":"test","data":{}}'`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
@@ -250,7 +253,7 @@ curl -X POST http://localhost:4000/apps/demo-app/channels/test:ch/publish \\
           
           <ol className="space-y-2 text-muted-foreground">
             <li>1. Check health endpoints above</li>
-            <li>2. Review logs: <code className="bg-black/50 px-2 py-1 rounded text-xs">docker-compose logs</code></li>
+            <li>2. Review logs: <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">docker-compose logs</SyntaxHighlighter></li>
             <li>3. Check docs for your specific issue</li>
             <li>4. Search GitHub issues</li>
             <li>5. Create a detailed issue with logs and steps to reproduce</li>

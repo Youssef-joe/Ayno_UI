@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "Production Setup - Ayno Docs",
   description: "Production deployment and configuration for Ayno",
@@ -28,9 +31,8 @@ export default function ProductionSetupPage() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Environment Variables</h2>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`MIX_ENV=prod
+          <SyntaxHighlighter language="env" style={oneDark} className="rounded-lg">
+            {`MIX_ENV=prod
 LOG_LEVEL=info
 REDIS_HOST=redis.internal
 REDIS_PORT=6379
@@ -39,23 +41,20 @@ GO_PROCESSOR_GRPC_HOST=go-processor.internal
 GO_PROCESSOR_GRPC_PORT=9090
 CIRCUIT_BREAKER_THRESHOLD=5
 CIRCUIT_BREAKER_TIMEOUT=30000`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">SSL/TLS Setup</h2>
           <p className="text-muted-foreground mb-4">Secure your connections with HTTPS:</p>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`# Using Let's Encrypt with Certbot
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`# Using Let's Encrypt with Certbot
 certbot certonly --standalone -d ayno.example.com
 
 # Update docker-compose.yml with cert paths
 volumes:
   - /etc/letsencrypt/live/ayno.example.com:/certs:ro`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
@@ -88,9 +87,8 @@ volumes:
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">High Availability</h2>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`# Scale Elixir servers (3+ recommended)
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`# Scale Elixir servers (3+ recommended)
 docker-compose up --scale polyglot=3
 
 # Scale Go processors
@@ -98,8 +96,7 @@ docker-compose up --scale go-processor=2
 
 # Load balancer distributes traffic
 # Nginx handles failover automatically`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>

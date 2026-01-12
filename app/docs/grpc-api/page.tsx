@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "gRPC API - Ayno Docs",
   description: "gRPC API documentation for high-performance communication",
@@ -26,28 +29,28 @@ export default function GRPCAPIPage() {
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">Protocol</h3>
               <p className="text-sm text-muted-foreground">
-                <code className="bg-black/50 px-2 py-1 rounded text-xs">gRPC over HTTP/2</code>
+                <code className="bg-primary text-black px-2 py-1 rounded text-xs">gRPC over HTTP/2</code>
               </p>
             </div>
 
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">Port</h3>
               <p className="text-sm text-muted-foreground">
-                <code className="bg-black/50 px-2 py-1 rounded text-xs">9090</code> (default)
+                <code className="bg-primary text-black px-2 py-1 rounded text-xs">9090</code> (default)
               </p>
             </div>
 
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">Host</h3>
               <p className="text-sm text-muted-foreground">
-                <code className="bg-black/50 px-2 py-1 rounded text-xs">go-processor</code> (Docker) or <code className="bg-black/50 px-2 py-1 rounded text-xs">localhost</code> (local)
+                <code className="bg-primary text-black px-2 py-1 rounded text-xs">go-processor</code> (Docker) or <code className="bg-primary text-black px-2 py-1 rounded text-xs">localhost</code> (local)
               </p>
             </div>
 
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">Configuration</h3>
               <p className="text-sm text-muted-foreground">
-                Set <code className="bg-black/50 px-2 py-1 rounded text-xs">USE_GRPC=true</code> to enable
+                Set <code className="bg-primary text-black px-2 py-1 rounded text-xs">USE_GRPC=true</code> to enable
               </p>
             </div>
           </div>
@@ -94,9 +97,8 @@ export default function GRPCAPIPage() {
             gRPC automatically integrates with the circuit breaker pattern:
           </p>
 
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto">
-            <code className="text-sm text-green-400">
-{`State: CLOSED (Normal)
+          <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+            {`State: CLOSED (Normal)
 ├─ Try gRPC (9090)
 ├─ Success → Continue
 └─ Failure (5 consecutive)
@@ -112,8 +114,7 @@ export default function GRPCAPIPage() {
    ├─ Test gRPC again
    ├─ Success → CLOSED
    └─ Failure → OPEN`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
@@ -122,9 +123,8 @@ export default function GRPCAPIPage() {
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">.env Configuration</h3>
-              <div className="bg-black/50 rounded p-2 overflow-auto text-xs">
-                <code className="text-green-400">
-{`# Enable gRPC
+              <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+                {`# Enable gRPC
 USE_GRPC=true
 
 # gRPC connection details
@@ -137,8 +137,7 @@ GO_PROCESSOR_URL=http://go-processor:8080
 # Circuit breaker settings
 CIRCUIT_BREAKER_THRESHOLD=5
 CIRCUIT_BREAKER_TIMEOUT=30000`}
-                </code>
-              </div>
+              </SyntaxHighlighter>
             </div>
           </div>
         </section>
@@ -148,9 +147,8 @@ CIRCUIT_BREAKER_TIMEOUT=30000`}
           
           <p className="text-muted-foreground mb-4">Check gRPC connectivity:</p>
 
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`# Check circuit breaker status
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`# Check circuit breaker status
 curl http://localhost:4000/api/debug/circuit-breaker
 
 Response:
@@ -167,8 +165,7 @@ docker logs polyglot_1 | grep -i grpc
 # - "Event processed via gRPC" → Success
 # - "Event processed via HTTP" → Fallback active
 # - "Circuit breaker: OPEN" → gRPC down`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
@@ -178,14 +175,14 @@ docker logs polyglot_1 | grep -i grpc
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Events not using gRPC</h3>
               <p className="text-sm text-muted-foreground">
-                Check <code className="bg-black/50 px-2 py-1 rounded text-xs">USE_GRPC=true</code> and verify gRPC server is running on port 9090
+                Check <code className="bg-primary text-black px-2 py-1 rounded text-xs">USE_GRPC=true</code> and verify gRPC server is running on port 9090
               </p>
             </div>
 
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Connection refused on port 9090</h3>
               <p className="text-sm text-muted-foreground">
-                Go processor not running. Check <code className="bg-black/50 px-2 py-1 rounded text-xs">docker logs go-processor_1</code>
+                Go processor not running. Check <code className="bg-primary text-black px-2 py-1 rounded text-xs">docker logs go-processor_1</code>
               </p>
             </div>
 

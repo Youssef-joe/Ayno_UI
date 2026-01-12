@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "Performance Tuning - Ayno Docs",
   description: "Optimize Ayno for maximum performance",
@@ -14,7 +17,7 @@ export default function PerformanceTuningPage() {
       <div className="space-y-6">
         <section>
           <h2 className="text-2xl font-semibold mb-4">Baseline Performance</h2>
-          
+
           <div className="grid gap-4 md:grid-cols-3">
             <div className="p-4 rounded-lg border border-primary/30 bg-primary/5">
               <div className="font-semibold text-primary">60k+ req/s</div>
@@ -33,12 +36,12 @@ export default function PerformanceTuningPage() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">gRPC Optimization</h2>
-          
+
           <p className="text-muted-foreground mb-4">Use gRPC for 5-10x better performance:</p>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`# Enable gRPC
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`# Enable gRPC
 USE_GRPC=true
 GO_PROCESSOR_GRPC_HOST=localhost
 GO_PROCESSOR_GRPC_PORT=9090
@@ -46,7 +49,7 @@ GO_PROCESSOR_GRPC_PORT=9090
 # Verify it's working
 curl http://localhost:4000/api/debug/circuit-breaker
 # Should show: "state": "closed"`}
-            </code>
+            </SyntaxHighlighter>
           </div>
 
           <p className="text-sm text-muted-foreground">
@@ -56,64 +59,64 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Connection Pooling</h2>
-          
+
           <p className="text-muted-foreground mb-4">
             Reuse connections to reduce overhead:
           </p>
 
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`# In docker-compose.yml, increase pool size
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`# In docker-compose.yml, increase pool size
 environment:
   GRPC_POOL_SIZE=100  # Connections to Go processor
   HTTP_POOL_SIZE=50   # HTTP connections`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Memory Optimization</h2>
-          
+
           <ul className="space-y-3 text-muted-foreground">
-            <li>
-              <strong>Limit history size:</strong> Store only recent messages in memory
+            <li className="text-white">
+              <strong className="text-muted-foreground/90">Limit history size:</strong> Store only recent messages in memory
             </li>
-            <li>
-              <strong>Message batching:</strong> Group messages to reduce overhead
+            <li className="text-white">
+              <strong className="text-muted-foreground/90">Message batching:</strong> Group messages to reduce overhead
             </li>
-            <li>
-              <strong>Compress payloads:</strong> Use gzip for large events
+            <li className="text-white">
+              <strong className="text-muted-foreground/90">Compress payloads:</strong> Use gzip for large events
             </li>
-            <li>
-              <strong>Clean sessions:</strong> Remove inactive sessions periodically
+            <li className="text-white">
+              <strong className="text-muted-foreground/90">Clean sessions:</strong> Remove inactive sessions periodically
             </li>
           </ul>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">CPU Optimization</h2>
-          
+
           <div className="space-y-3 text-muted-foreground">
-            <div className="p-3 rounded border border-white/10 bg-white/5">
-              <strong>Use gRPC:</strong> More efficient than JSON/HTTP
+            <div className="p-3 rounded border text-white border-white/10 bg-white/5">
+              <strong className="text-muted-foreground">Use gRPC:</strong> More efficient than JSON/HTTP
             </div>
-            <div className="p-3 rounded border border-white/10 bg-white/5">
-              <strong>Scale horizontally:</strong> Add more CPU with more servers
+            <div className="p-3 rounded border text-white border-white/10 bg-white/5">
+              <strong className="text-muted-foreground">Scale horizontally:</strong> Add more CPU with more servers
             </div>
-            <div className="p-3 rounded border border-white/10 bg-white/5">
-              <strong>Reduce logging:</strong> Set LOG_LEVEL=warn or error in prod
+            <div className="p-3 rounded border text-white border-white/10 bg-white/5">
+              <strong className="text-muted-foreground">Reduce logging:</strong> Set LOG_LEVEL=warn or error in prod
             </div>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Benchmarking</h2>
-          
+
           <p className="text-muted-foreground mb-4">Run benchmarks to measure performance:</p>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`# Simple throughput test
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`# Simple throughput test
 curl -X POST http://localhost:4000/apps/demo-app/channels/room:test/publish \\
   -H "X-API-Key: valid_key_demo-app" \\
   -H "Content-Type: application/json" \\
@@ -125,16 +128,16 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
 # Verify circuit is CLOSED (using gRPC)
 # Verify no errors in logs`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Monitoring Performance</h2>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`# Watch performance metrics
+            <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+              {`# Watch performance metrics
 docker stats --no-stream polyglot_1
 
 # Should see:
@@ -149,13 +152,13 @@ curl -w "Time: %{time_total}s\\n" http://localhost:4000/health
 # Monitor error rates
 docker logs -f polyglot_1 | grep -i error
 # Should see very few errors`}
-            </code>
+            </SyntaxHighlighter>
           </div>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Common Bottlenecks</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Circuit breaker OPEN</h3>
@@ -189,7 +192,7 @@ docker logs -f polyglot_1 | grep -i error
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Scaling Checklist</h2>
-          
+
           <ul className="space-y-2 text-muted-foreground">
             <li>✓ gRPC enabled and working (circuit CLOSED)</li>
             <li>✓ Multiple Elixir servers (3+)</li>

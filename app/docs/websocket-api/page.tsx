@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "WebSocket API - Ayno Docs",
   description: "WebSocket API documentation for realtime communication",
@@ -14,37 +17,33 @@ export default function WebSocketAPIPage() {
       <div className="space-y-6">
         <section>
           <h2 className="text-2xl font-semibold mb-4">Connection</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`// Connect to WebSocket
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`// Connect to WebSocket
 const socket = new WebSocket('ws://localhost:4000/socket');
 
 socket.onopen = () => {
   console.log('Connected');
 };`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
 
-          <p className="text-sm text-muted-foreground">
-            Default port: 4000 | Production: Use <code className="bg-black/50 px-2 py-1 rounded text-xs">wss://</code> for secure connection
+          <p className="text-sm text-white/70 mt-4">
+            Default port: 4000 | Production: Use <code className="bg-black/50 px-2 py-1 text-valid_key_{'app_id'} text-xs">wss://</code> for secure connection
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Authentication</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`socket.send(JSON.stringify({
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`socket.send(JSON.stringify({
   event: 'auth',
   data: {
     app_id: 'demo-app',
     token: 'valid_token_alice'
   }
 }));`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
 
           <div className="p-4 rounded-lg border border-white/10 bg-white/5 mt-4">
             <p className="text-sm text-muted-foreground">
@@ -55,47 +54,42 @@ socket.onopen = () => {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Subscribe to Channel</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`socket.send(JSON.stringify({
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`socket.send(JSON.stringify({
   event: 'subscribe',
   channel: 'room:lobby'
 }));`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
 
-          <p className="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-white/70 mt-4">
             Subscribe to multiple channels by sending multiple subscribe events.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Receive Messages</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`socket.onmessage = (event) => {
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`socket.onmessage = (event) => {
   const message = JSON.parse(event.data);
   
   if (message.event === 'message') {
     console.log('New message:', message.data);
   }
 };`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
 
-          <p className="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-white/70 mt-4">
             Messages are delivered instantly to all subscribers (~10ms latency).
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Publish Message</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`socket.send(JSON.stringify({
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`socket.send(JSON.stringify({
   event: 'publish',
   channel: 'room:lobby',
   data: {
@@ -105,17 +99,16 @@ socket.onopen = () => {
     }
   }
 }));`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
 
-          <p className="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-white/70 mt-4">
             Publishing via WebSocket is optional. You can also use the HTTP API for publishing.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Events</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-mono font-semibold text-primary mb-2">auth</h3>
@@ -151,10 +144,9 @@ socket.onopen = () => {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Error Handling</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`socket.onerror = (error) => {
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`socket.onerror = (error) => {
   console.error('WebSocket error:', error);
 };
 
@@ -164,16 +156,14 @@ socket.onmessage = (event) => {
     console.error('Server error:', message.data.message);
   }
 };`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Reconnection</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`function connectWebSocket() {
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`function connectWebSocket() {
   const socket = new WebSocket('ws://localhost:4000/socket');
   
   socket.onclose = () => {
@@ -183,16 +173,14 @@ socket.onmessage = (event) => {
   
   return socket;
 }`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Complete Example</h2>
-          
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
-            <code className="text-green-400">
-{`// Initialize
+
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`// Initialize
 const socket = new WebSocket('ws://localhost:4000/socket');
 
 // On connect
@@ -221,8 +209,7 @@ socket.onmessage = (event) => {
 // Handle errors
 socket.onerror = (error) => console.error('Error:', error);
 socket.onclose = () => console.log('Disconnected');`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>

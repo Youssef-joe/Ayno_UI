@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "Quick Start - Ayno Docs",
   description: "Get started with Ayno in minutes",
@@ -14,54 +17,47 @@ export default function QuickStartPage() {
       <div className="space-y-6">
         <section>
           <h2 className="text-2xl font-semibold mb-4">1. Start Ayno</h2>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto">
-            <code className="text-sm text-green-400">
-{`docker-compose up --build`}
-            </code>
-          </div>
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`docker-compose up --build`}
+          </SyntaxHighlighter>
           <p className="text-sm text-muted-foreground mt-2">This starts all services on localhost</p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">2. Check Health</h2>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto">
-            <code className="text-sm text-green-400">
-{`curl http://localhost:4000/health`}
-            </code>
-          </div>
-          <p className="text-sm text-muted-foreground mt-2">Response: <code className="bg-black/50 px-2 py-1 rounded text-xs">{"{"}"status":"healthy"{"}"}</code></p>
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`curl http://localhost:4000/health`}
+          </SyntaxHighlighter>
+          <span className="bg-primary text-md mt-2 px-2 py-1 rounded text-black">
+            {"{"}"status":"healthy"{"}"}
+          </span>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">3. Publish an Event</h2>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto">
-            <code className="text-sm text-green-400">
-{`curl -X POST http://localhost:4000/apps/demo-app/channels/room:test/publish \\
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`curl -X POST http://localhost:4000/apps/demo-app/channels/room:test/publish \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: valid_key_demo-app" \\
   -d '{
     "type": "message",
     "data": {"text": "Hello Ayno"}
   }'`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">4. Get Channel History</h2>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto">
-            <code className="text-sm text-green-400">
-{`curl http://localhost:4000/apps/demo-app/channels/room:test/history`}
-            </code>
-          </div>
-          <p className="text-sm text-muted-foreground mt-2">Returns all messages in the channel</p>
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`curl http://localhost:4000/apps/demo-app/channels/room:test/history`}
+          </SyntaxHighlighter>
+          <span className="bg-primary text-md mt-2 px-2 py-1 rounded text-black">Returns all messages in the channel</span>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">5. Connect via WebSocket (JavaScript)</h2>
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto">
-            <code className="text-sm text-green-400">
-{`const socket = new WebSocket('ws://localhost:4000/socket');
+          <SyntaxHighlighter language="javascript" style={oneDark} className="rounded-lg">
+            {`const socket = new WebSocket('ws://localhost:4000/socket');
 
 socket.onopen = () => {
   socket.send(JSON.stringify({
@@ -73,8 +69,7 @@ socket.onopen = () => {
 socket.onmessage = (event) => {
   console.log('Message:', JSON.parse(event.data));
 };`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
@@ -86,7 +81,7 @@ socket.onmessage = (event) => {
                 Unique identifier for your application. Default: <code className="bg-black/50 px-2 py-1 rounded text-xs">demo-app</code>
               </p>
             </div>
-            
+
             <div className="p-4 rounded-lg border border-white/10 bg-white/5">
               <h3 className="font-semibold mb-2">Channel</h3>
               <p className="text-sm text-muted-foreground">
