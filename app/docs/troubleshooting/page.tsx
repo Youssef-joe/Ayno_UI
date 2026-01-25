@@ -17,12 +17,12 @@ export default function TroubleshootingPage() {
       <div className="space-y-6">
         <section>
           <h2 className="text-2xl font-semibold mb-4">Health Checks</h2>
-          
+
           <p className="text-muted-foreground mb-4">Always start here:</p>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
             <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
-{`# 1. Check if server is running
+              {`# 1. Check if server is running
 curl http://localhost:4000/health
 # Expected: {"status":"healthy"}
 
@@ -43,7 +43,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Connection Issues</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Connection refused on port 4000</h3>
@@ -83,13 +83,23 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">API Issues</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">401 Unauthorized</h3>
               <div className="text-sm text-muted-foreground space-y-2">
-                <p><strong>Cause:</strong> Invalid or missing API key</p>
-                <p><strong>Fix:</strong> Use format <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">valid_key_demo-app</SyntaxHighlighter></p>
+                <p>
+                  <strong>Cause:</strong>
+                  Invalid or missing API key
+                </p>
+
+                <p>
+                  <strong>Fix: </strong>
+                  Use format
+                  <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
+                    valid_key_demo-app
+                  </SyntaxHighlighter>
+                </p>
               </div>
             </div>
 
@@ -121,7 +131,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">WebSocket Issues</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">WebSocket connection refused</h3>
@@ -151,7 +161,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Performance Issues</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">High latency ({'>'}50ms)</h3>
@@ -189,7 +199,7 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Docker Issues</h2>
-          
+
           <div className="space-y-4">
             <div className="p-4 rounded-lg border border-red-500/20 bg-red-500/5">
               <h3 className="font-semibold text-red-400 mb-2">Container won't start</h3>
@@ -220,10 +230,10 @@ curl http://localhost:4000/api/debug/circuit-breaker
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Diagnostics Commands</h2>
-          
+
           <div className="bg-black/50 rounded-lg p-4 overflow-auto text-xs">
             <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">
-{`# Full system diagnosis
+              {`# Full system diagnosis
 echo "1. Check health"
 curl -s http://localhost:4000/health | jq
 
@@ -250,7 +260,7 @@ curl -X POST http://localhost:4000/apps/demo-app/channels/test:ch/publish \\
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Getting Help</h2>
-          
+
           <ol className="space-y-2 text-muted-foreground">
             <li>1. Check health endpoints above</li>
             <li>2. Review logs: <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg">docker-compose logs</SyntaxHighlighter></li>

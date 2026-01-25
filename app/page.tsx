@@ -104,7 +104,6 @@ export default function Home() {
         <CodeExamples />
         <Stats />
         <CTA />
-        <Footer />
       </div>
     </main>
   )

@@ -1,5 +1,5 @@
 import SyntaxHighlighter from "react-syntax-highlighter"
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { oneDark, coldarkCold } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 export const metadata = {
   title: "HTTP API - Ayno Docs",
@@ -33,11 +33,14 @@ export default function HTTPAPIPage() {
             {`X-API-Key: valid_key_demo-app`}
           </SyntaxHighlighter>
 
-          <p className="text-sm text-white/70 mt-4">
-            Format: <SyntaxHighlighter language="text" style={oneDark} className="rounded-lg inline-block">
+          <div className="flex items-center gap-4 mt-4">
+            <p className="text-lg text-white/70">
+              Format:
+            </p>
+            <span className="rounded-lg px-2 py-1 bg-primary/40">
               {`valid_key_{app_id}`}
-            </SyntaxHighlighter>
-          </p>
+            </span>
+          </div>
         </section>
 
         <section>
