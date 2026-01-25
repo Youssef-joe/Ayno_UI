@@ -10,7 +10,7 @@ export default function DocsLayoutClient({
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-background text-foreground">
       <div className="hidden lg:block lg:w-64 border-r border-white/10 flex-shrink-0">
-        <div className="sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
           <DocsSidebar />
         </div>
       </div>

@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  text-align:justify;
+  
   /* Sophisticated dark theme with space-like aesthetic */
   --background: oklch(0.08 0 0);
   --foreground: oklch(0.96 0 0);

@@ -2,13 +2,13 @@ import Link from "next/link"
 
 export default function Footer() {
     return (
-        <footer className="border-t border-white/10 py-12 px-4">
-            <div className="max-w-6xl mx-auto">
+        <footer className="border-t border-white/10 py-12 px-4 bg-background/40 backdrop-blur-md">
+            <div className="max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-4 gap-8 mb-8">
                     <div>
-                        <h3 className="text-lg font-bold gradient-text-subtle mb-4">Polyglot</h3>
+                        <h3 className="text-lg font-bold text-primary mb-4">Ayno</h3>
                         <p className="text-sm text-muted-foreground leading-relaxed">
-                            Open-source realtime platform built with Elixir, Go, and C++.
+                            Open-source realtime platform built with Elixir, Go, and C++. High-performance infrastructure for real-time applications.
                         </p>
                     </div>
                     <div>

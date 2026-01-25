@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { atomOneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs"
 
 const docSections = [
   {
@@ -52,12 +53,10 @@ export default function DocsSidebar() {
 
   return (
     <nav className="py-8 pr-8">
-      <h2 className="text-sm font-semibold text-foreground mb-6 px-4">Documentation</h2>
-
       <div className="space-y-8">
         {docSections.map((section) => (
           <div key={section.title}>
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-4">
+            <h3 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3 px-4">
               {section.title}
             </h3>
             <ul className="space-y-1">
@@ -65,11 +64,10 @@ export default function DocsSidebar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`block px-4 py-2 text-sm rounded transition ${
-                      pathname === item.href
+                    className={`block px-4 py-2 text-sm rounded transition ${pathname === item.href
                         ? "bg-primary/20 text-primary font-medium"
-                        : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-                    }`}
+                        : "text-muted-foreground/90 hover:text-foreground hover:bg-white/5"
+                      }`}
                   >
                     {item.label}
                   </Link>

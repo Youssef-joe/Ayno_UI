@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased pt-16`}>
+      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
         <Header />
         {children}
         <Analytics />

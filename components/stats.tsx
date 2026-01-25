@@ -37,7 +37,7 @@ export default function Stats() {
                     {stats.map((stat, index) => (
                         <div key={index} className="text-center">
                             <div
-                                className={`text-4xl md:text-5xl font-bold mb-2 ${stat.color} transition-all duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
+                                className={`text-2xl md:text-4xl font-bold mb-2 ${stat.color} transition-all duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
                             >
                                 {stat.value}
                             </div>
