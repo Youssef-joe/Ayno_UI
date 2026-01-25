@@ -1,3 +1,6 @@
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const metadata = {
   title: "Scaling Guide - Ayno Docs",
   description: "Scale Ayno for high traffic and large deployments",
@@ -35,15 +38,13 @@ export default function ScalingPage() {
           
           <p className="text-muted-foreground mb-4">Scale Elixir servers with Docker Compose:</p>
           
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`# Start with 5 Elixir servers
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`# Start with 5 Elixir servers
 docker-compose up --scale polyglot=5
 
 # Increase to 10 if needed
 docker-compose up --scale polyglot=10`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
 
           <p className="text-sm text-muted-foreground">
             Each server handles ~10k concurrent connections. With 5 servers: 50k connections. With 10 servers: 100k connections.
@@ -55,16 +56,14 @@ docker-compose up --scale polyglot=10`}
           
           <p className="text-muted-foreground mb-4">Scale Go processors independently:</p>
           
-          <div className="bg-black/50 rounded-lg p-4 overflow-auto mb-4">
-            <code className="text-sm text-green-400">
-{`# Start with 2-3 processors
+          <SyntaxHighlighter language="bash" style={oneDark} className="rounded-lg">
+            {`# Start with 2-3 processors
 docker-compose up --scale go-processor=2
 
 # Each processor: 60k+ req/s
 # 2 processors: 120k+ req/s
 # 3 processors: 180k+ req/s`}
-            </code>
-          </div>
+          </SyntaxHighlighter>
         </section>
 
         <section>
